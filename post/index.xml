@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Hugo XMag</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on Hugo XMag</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 26 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Simple to win for Liberal Party - focus on older voters!</title>
+      <link>/post/2020/09/26/simple-to-win-for-liberal-party/</link>
+      <pubDate>Sat, 26 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2020/09/26/simple-to-win-for-liberal-party/</guid>
+      <description>AbstractThis project focused on the relationship between the ages of voters and voting percentages of Liberal Party using 2019 Canadian Election Study data. Based on the finding of the project, the results show that the voting percentages of Liberal Party is roughly decreasing with increasing of ages of voters. Thus, this project suggests Liberal Party should focus on obtain more votes from older people to win the election.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,103 @@
+---
+title: Simple to win for Liberal Party - focus on older voters!
+author: LiyuanCao
+date: '2020-09-26'
+slug: simple-to-win-for-liberal-party
+categories: []
+tags: []
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Abstract
+
+This project focused on the relationship between the ages of voters and voting percentages of Liberal Party using 2019 Canadian Election Study data. Based on the finding of the project, the results show that the voting percentages of Liberal Party is roughly decreasing with increasing of ages of voters. Thus, this project suggests Liberal Party should focus on obtain more votes from older people to win the election.
+
+# Introduction
+
+There are already lots of researches studied the strategies for political parities to win elections. For examples, Cox, G.W. (1997) already described basic strategies for world's electoral systems, Faucheux, R. (1997, December) introduced lots of strategies to help parties to win the elections. However, these strategies might be too complicated. This project will be targeted to investigate a simple but might be useful strategy for Liberal Party based only on the age of voters and hope that this project would be a good start point for those people who are interested in this area.
+
+
+# Data discussion
+
+The original data is the 2019 CES Online surveys which is about the 2019 Canadian Election Study - Online Survey. The whole original data contains more than 35000 samples and more than 600 attributes. The source of the data is from the website http://www.ces-eec.ca/ and 
+the R pacakge cesR can be used to download it directly, the details of downloading data process is described in the website https://hodgettsp.github.io/cesR/. 
+
+And for this project, as an initial investigation which is not complicated only two attributes are used. The first one is which of the parties the voters will choice and the second one is the age of the voters. The details of the two attributes are:
+
+1. cps19_age:  Respondent age in years.
+
+2. cps19_votechoice: Which party do you think you will vote for?
+
+And for the second attribute, only the answers for Liberal Party and Conservative Party are kept for this project. As the two parties are the two most important ones.
+
+# Graph and Discussion
+
+
+```{r}
+library(cesR)
+library(labelled)
+library(ggplot2)
+library(dplyr)
+library(scales)
+```
+
+```{r,eval=F}
+#2019 CES online survey
+get_ces("ces2019_web")
+#convert values to factors
+ces2019_web <- to_factor(ces2019_web)
+```
+
+```{r,echo=F}
+load("ces2019_web.rdata")
+```
+
+```{r}
+#find the two most important parties
+data <- ces2019_web %>% filter(cps19_votechoice %in% c("Liberal Party",
+                                                       "Conservative Party"))
+#find the percentages of voting Liberal Party for each stage of ages
+data2 <- data %>% group_by(cps19_age) %>% summarise(percentage = mean(
+  cps19_votechoice  == "Liberal Party"
+))
+
+#show the percentages of voting Liberal Party by age
+#fitted the trend by a straight line
+ggplot(data2, aes(cps19_age,percentage))+geom_point(color="red")+geom_line(color = "blue") +
+   xlab("age") +  ylab("Percentage of voting for Liberal Party") +
+  scale_y_continuous(labels = percent) + geom_smooth(method="lm",fill=NA,color ="darkorange")
+```
+
+The graph shows the percentage of voting for Liberal Party between Liberal Party and Conservative Party by the different ages of voters. The plot shows that with increasing of age of voters, although there are waves across the ages, the whole trend is that the percentage of voting for Liberal Party by voters is decline with increasing of age. This trend is fitted by the red straight line and the red straight line clearly shows a decline trend.  Note that, there is a high percentage of voting for Liberal Party for ages around 91 to 93, this is supposed due to the few counts of voters in the range of those ages. As the total counts of voters with ages larger than 90 are smaller than 100,  we can only focus on the trend of voters with ages younger than 90 years old. So this pattern means that the support of Liberal Party is clearly lower for older people compared with younger ones. Thus, based on the finding of this project, it is recommended for the Liberal Party that the party should focus on obtain more supports from older people if the party want to win the election. 
+
+
+# Weaknesses and Next steps
+
+In this project, the study only investaged a simple strategy for Liberal Party which is to obtain more supports from older people, the study does not consider other parties such as Conservative Party, Green Party, People's Party and so on. Also, this study only focus on the age of the voters for the Liberal Party, other characteristics are not investigated. Thus, in the next steps, more parties and more characteristics of voters could be investigated to find better strategies to win election. 
+
+
+# References
+
+1. Cox, G.W. (1997). Making votes count: strategic coordination in the world's electoral systems. Cambridge University Press. 
+
+2. Faucheux, R. (1997, December). Strategies that win!. [Electronic version] Campaign & Elections, 18(10), p24, 8p.
+
+3. Stephenson, Laura B; Harell, Allison; Rubenson, Daniel; Loewen, Peter John, 2020, "2019 Canadian Election Study - Online Survey", https://doi.org/10.7910/DVN/DUS88V, Harvard Dataverse, V1
+
+# Appendix
+
+The whole project is generated by Rmarkdown, Blogdown and Github. Source codes can be found in the https://github.com/tong304/tong304.github.io.
+
+
+
+
+
+
+
+
+
+
